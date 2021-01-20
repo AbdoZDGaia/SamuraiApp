@@ -19,7 +19,48 @@ namespace ConsoleApp
             //GetSamurais("After Add:");
             //Console.Write("Press any key...");
             //Console.ReadKey();
-            QueryFilters();
+            //QueryFilters();
+            //UpdateSamurai();
+            //UpdateSamurais();
+            //InsertBattle();
+            QueryAndUpdateBattleDisconnected();
+        }
+
+        private static void QueryAndUpdateBattleDisconnected()
+        {
+            var battle = _ctx.Battles.AsNoTracking().FirstOrDefault();
+            battle.EndDate = new DateTime(2200, 10, 1);
+            using (var disconnectedCtx = new SamuraiContext())
+            {
+                disconnectedCtx.Battles.Update(battle);
+                disconnectedCtx.SaveChanges();
+            }
+        }
+
+        private static void InsertBattle()
+        {
+            var battle = new Battle
+            {
+                Name = "7arb embaba",
+                StartDate = new DateTime(2120, 11, 30),
+                EndDate = new DateTime(3000, 10, 20)
+            };
+            _ctx.Battles.Add(battle);
+            _ctx.SaveChanges();
+        }
+
+        private static void UpdateSamurais()
+        {
+            var samurais = _ctx.Samurais.Skip(1).Take(4).ToList();
+            samurais.ForEach(s => s.Name += " San");
+            _ctx.SaveChanges();
+        }
+
+        private static void UpdateSamurai()
+        {
+            var samurai = _ctx.Samurais.FirstOrDefault();
+            samurai.Name += " San";
+            _ctx.SaveChanges();
         }
 
         private static void QueryFilters()
