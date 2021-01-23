@@ -10,6 +10,8 @@ namespace SamuraiApp.Data
         public DbSet<Clan> Clans { get; set; }
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<Battle> Battles { get; set; }
+        public DbSet<SamuraiBattleStat> SamuraiBattleStats { get; set; }
+
 
         public SamuraiContextNoTracking()
         {
